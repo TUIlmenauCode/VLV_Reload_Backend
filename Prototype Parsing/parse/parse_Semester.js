@@ -43,8 +43,8 @@ const Parse = {
                                 });
                             }
                             else{
-                                console.log("Row found: "+ existResult[0].courseID);
-                                DB_Semester.setSelected(existResult[0].courseID, function(set_error,set_result){
+                                console.log("Row found: "+ existResult[0].fachSemesterID);
+                                DB_Semester.setSelected(existResult[0].fachSemesterID, function(set_error,set_result){
                                     if(set_error){
                                         log.error("Error called parse_Course.DB_Course.setSelected", set_error);
                                         console.log("Error called parse_Course.DB_Course.setSelected");
