@@ -26,10 +26,11 @@ const Parse = {
                             console.log(existResult);
                             if(typeof existResult[0] == "undefined"){
                                 console.log("insert Data")
-                                DB_Semester.write(name,function(err, result){
+                                DB_Semester.write(name, function(err, result){
                                     if (err){
                                         log.error("Error called parse_Course.DB_Course.write", err);
                                         console.log("Error called parse_Course.DB_Course.write");
+                                        console.log(err);
                                     }else{
                                         console.log("Console : Insert row = " + result.insertId);
 
