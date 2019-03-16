@@ -11,6 +11,10 @@ const Semester = {
 
     setSelected:function(rowID, callback){
         return db.query("UPDATE `Semester` SET `lastLookup`= CURRENT_TIMESTAMP() WHERE fachSemesterID = ?", rowID, callback);
+    },
+
+    getID_fromName:function(name, callback){
+        return db.query("SELECT `fachSemesterID` FROM `Semester` WHERE name = ? ;", [name], callback)
     }
 }
 

@@ -12,6 +12,10 @@ const Course = {
 
     setSelected:function(rowID, callback){
         return db.query("UPDATE `Course` SET `lastLookup`= CURRENT_TIMESTAMP() WHERE courseID = ?", rowID, callback);
+    },
+
+    getID_fromName:function(name, callback){
+        return db.query("SELECT `courseID` FROM `Course` WHERE short = ? ;", [name], callback)
     }
 
 

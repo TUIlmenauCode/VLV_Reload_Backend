@@ -19,6 +19,10 @@ const parse_index = {
         return db.query("SELECT * FROM `parse_index` WHERE isCourseLink = 0", callback);
     },
 
+    selectAll:function(callback){
+        return db.query("SELECT * FROM `parse_index` WHERE 1", callback);
+    },
+
     selectAll_SemesterRows:function(callback){
         return db.query("SELECT * FROM `parse_index` WHERE isCourseLink = 1", callback);
     },

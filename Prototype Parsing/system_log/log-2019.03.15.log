@@ -5248,3 +5248,5 @@ Error: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual th
     at Query.EofPacket (/Users/kaigothestudio/Projekte/VLV_Reload_Backend/Prototype Parsing/node_modules/mysql/lib/protocol/sequences/Query.js:123:8)
     at Protocol._parsePacket (/Users/kaigothestudio/Projekte/VLV_Reload_Backend/Prototype Parsing/node_modules/mysql/lib/protocol/Protocol.js:278:23)
     at Parser.write (/Users/kaigothestudio/Projekte/VLV_Reload_Backend/Prototype Parsing/node_modules/mysql/lib/protocol/Parser.js:76:12) 
+
+
