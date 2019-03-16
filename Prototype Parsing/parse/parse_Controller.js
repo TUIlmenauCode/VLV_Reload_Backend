@@ -18,9 +18,10 @@ const Parse = {
             parse_Course.start(function(){
                 
                 parse_Smester.start(function(){
-                    console.log("END");
-
-                    parse_SemenarGroups
+                    
+                    parse_SemenarGroups.start(function(){
+                        console.log("END");
+                    })
 
                 })
                 

@@ -11,6 +11,10 @@ const SeminarGroup = {
 
     setSelected:function(rowID, callback){
         return db.query("UPDATE `SeminarGroup` SET `lastLookup`= CURRENT_TIMESTAMP() WHERE seminarGroupID = ?", rowID, callback);
+    }, 
+
+    selectAll_names_ID:function(callback){
+        return db.query("SELECT seminarGroupID, name FROM `SeminarGroup` WHERE1", callback);
     }
 }
 
