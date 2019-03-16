@@ -1,6 +1,5 @@
 const parseCalWeekView = require("./parse/parseCalWeekView");
-const parseIndex = require("./parse/parse_Index");
-const parse_seminargruppe = require("./parse/parse_SeminarGroups");
+const testParse = require("./parse/parse_Events");
 
 const parse_Controller = require("./parse/parse_Controller");
 
@@ -16,9 +15,11 @@ const URLbase = "https://tu-ilmenau.de/vlv/"
 var URL = "";
 URL = "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&sgkurz=MB_DP&vers=text&studiengang=Maschinenbau&fs=2.FS" // SS = 6 WS = 330
 
-parse_Controller.start(URL);
+//parse_Controller.start(URL);
 
-// parse_seminargruppe.start(function(){
-//     console.log("END Test");
-// })
+testParse.start(function(){
+    console.log("END Test");
+});
+
+
 
