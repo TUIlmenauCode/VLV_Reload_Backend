@@ -27,6 +27,9 @@ const URLbase = "https://tu-ilmenau.de/vlv/"
 const cheerio = require('cheerio');
 var request = require("request");
 
+const DB_loadedPages = require("../modules/DB_Modules/LoadedPages");
+const EventHandler = require("../modules/EventType_handler");
+
 
 
 
@@ -42,17 +45,16 @@ var request = require("request");
 
 
 var Parse = {
-    start:function(url, callback){
-        
-        var returnList = [];
-        
+    start:function(url, seminarGroupID, week, callback){ 
         request({
             uri: url,
+            
             }, 
             function(error, response, body) {
                 if (error){
                     console.log(error);
                 }else{
+                    DB_loadedPages.write("WeekView", url, body);
                     const $ = cheerio.load(body);
                     var elements = $('td div'); //jquery get all hyperlinks
                     elements.each(function(i, e){
@@ -114,9 +116,16 @@ var Parse = {
                             time: cur_time
                         }
                         
-                        returnList.push(returnElement);
+                        //returnList.push(returnElement);
+                        EventHandler.start(returnElement, seminarGroupID, week)
+
+
+                        // if (elements.length == i){
+                        //     callback(returnList);
+                        // }
+
                     });
-                    callback(returnList);
+                    
               }
           });
     }

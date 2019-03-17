@@ -2,7 +2,7 @@ const log = require("../modules/Log");
 const utility = require("../modules/utility");
 
 const DBSeminarGroups = require("../modules/DB_Modules/SeminarGroup");
-const parese_week = require("../parse/parseCalWeekView");
+const parse_week = require("../parse/parseCalWeekView");
 
 
 
@@ -20,30 +20,27 @@ const Events = {
                 log.error("Error called at parse_Events.start.DBSeminarGroups.selectAll_names_ID", select_err);
                 console.log(select_err);
             }else{
-                console.log(select_result);
+                //console.log(select_result);
 
                 select_result.forEach(function(DB_item, index){
 
-                    console.log("ID: " + DB_item.seminarGroupID);
-                    console.log("name: " + DB_item.name);
+                    //console.log("ID: " + DB_item.seminarGroupID);
+                    //console.log("name: " + DB_item.name);
 
                     for (week = 14; week <=40 ; week++) {
-                        const requestURL =  "http://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+DB_item.name.replace(" ", "+")+"&vers=graph"
-                        console.log(requestURL);
+                        const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+DB_item.name.replace(/ /g, "+")+"&vers=graph"
+                        //console.log(requestURL);
 
-                        parese_week.start(requestURL, function(result){
+                        parse_week.start(requestURL, DB_item.seminarGroupID, week, function(result){
+                            
                             console.log(DB_item.name);
+                            console.log(requestURL);
                             console.log(result);
                             console.log("==================================================================================")
                         })
 
                     }
-
-                   
-
                 });
-                
-
             }
         })
 
@@ -58,3 +55,7 @@ const Events = {
 }
 
 module.exports = Events;
+
+
+// https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche=24&sggruppe=BT_MA+1.FS+5+EleT&vers=graph
+// https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche=14&sggruppe=BT_MA+1.FS+5+EleT&vers=graph
