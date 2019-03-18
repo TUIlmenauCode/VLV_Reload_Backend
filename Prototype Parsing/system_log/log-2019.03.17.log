@@ -44,3 +44,4 @@ Error: connect ENETUNREACH 159.69.202.156:3306 - Local (0.0.0.0:54692)
     at Object.<anonymous> (/Users/kaigothestudio/Projekte/VLV_Reload_Backend/Prototype Parsing/index.js:20:11)
     at Module._compile (module.js:653:30)
     at Object.Module._extensions..js (module.js:664:10) 
+
