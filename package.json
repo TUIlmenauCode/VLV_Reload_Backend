@@ -1,0 +1,20 @@
+{
+  "name": "parse-test",
+  "version": "1.0.0",
+  "description": "testing html parse",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "moment": "^2.24.0",
+    "mysql": "^2.16.0",
+    "node-html-parser": "^1.1.12",
+    "request": "^2.88.0",
+    "simple-node-logger": "^18.12.22"
+  }
+}
