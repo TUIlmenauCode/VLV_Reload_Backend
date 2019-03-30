@@ -25,7 +25,7 @@ const parse = {
                     //console.log(links.length);
                     
                     $(links).each(function(i, link){
-                        //console.log(links.length + " : " + i);
+                        console.log(links.length + " : " + i);
                         const pattern = /index.php\?+/g // pattern for next Links (aussortieren von Legende Link)
                         if ($(link).attr('href').match(pattern)){
                             var isFS = false;
@@ -35,37 +35,26 @@ const parse = {
                             if ($(link).text().match(isFSPattern)){
                               isFS = true;
                             }
-                            
 
-                            test_handler.exist_Row_withHREF(link_href, function(err, result){
+                            console.log("Link: " + link_href + "\n Text: "+ link_text + "\n isFS?: " + isFS);
+
+                            
+                            // Insert in DB Or Exist -> get Id 
+
+                            DB_parse_index.getID(link_text, link_href, isFS, function(err, dbResult){
+                                
                                 if (err){
                                     log.error("Error called at getIndex.DB_parse_index.exist_HREF", error);
-                                    console.log(err);
+                                    console.log(err); 
                                 }else{
-                                    //console.log("Result:" );
-                                    //console.log(result);
-                                    if (result[0] == null){
-                                        //console.log("--> Index object does not exist -> insert in DB");
-                                        DB_parse_index.write(link_text, link_href, isFS, function(err, result){
-                                            if (err){
-                                                log.error("Error called at getIndex.DB_parse_index.write", err);
-                                                console.log(err);
-                                            }else{
-                                               // console.log(result.insertId);
-                                            }
-                                        });
-                                    }else{
-                                        //console.log("--> Index object does exist");
-                                        //console.log(result[0].selectedID);
+                                    console.log(dbResult[1][0].ID);
+                                    if (links.length - 1 == i){
+                                        console.log("parse index ended");
+                                        callback();
                                     }
                                 }
                             })
-
-                        if (links.length - 1 == i){
-                            console.log("parse index ended");
-                            callback();
                         }
-                    }
                 });
             }
         }); 

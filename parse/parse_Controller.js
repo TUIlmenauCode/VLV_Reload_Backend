@@ -11,44 +11,28 @@ const Parse = {
 
     start:function(){
         // do Index 
-
+        // Select all SeminarGroups Links on vlv reload website
+        
+        
         parseIndex.start(startURL, function(){
+
+            console.log("Parse Controller Ended")
            
             // do course (Studiengänge)
-            parse_Course.start(function(){
+            // parse_Course.start(function(){
                 
-                parse_Smester.start(function(){
+            //     parse_Smester.start(function(){
                     
-                    parse_SemenarGroups.start(function(){
-                        console.log("END");
-                    })
+            //         parse_SemenarGroups.start(function(){
+            //             console.log("END");
+            //         })
 
-                })
+            //     })
                 
-            });
+            // });
 
         });
-
-
-        
-
-        // do Semester 
-
-        // do Seminargroups 
-
-        // do WEEk cal 
-
-            // do veranstalltungen
-            // do  termine 
-
-            // do rooms 
-
-
-        // SELECT * FROM parse_index WHERE DATE(`lastLookup`) != CURDATE()
-
     }
-
-
 } 
 
 module.exports = Parse;

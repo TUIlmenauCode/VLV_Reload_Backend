@@ -27,8 +27,8 @@ const URLbase = "https://tu-ilmenau.de/vlv/"
 const cheerio = require('cheerio');
 var request = require("request");
 
-const DB_loadedPages = require("../Prototype Parsing/modules/DB_Modules/LoadedPages");
-const EventHandler = require("../Prototype Parsing/modules/EventType_handler");
+const DB_loadedPages = require("../modules/DB_Modules/LoadedPages");
+const EventHandler = require("../modules/EventType_handler");
 
 
 
