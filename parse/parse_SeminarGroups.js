@@ -4,6 +4,7 @@ const log = require('../modules/Log');
 const DB_Course = require("../modules/DB_Modules/Course");
 const DB_Semster = require("../modules/DB_Modules/Semester");
 const DB_parse_index = require("../modules/DB_Modules/parsed_index"); // URL Resource 
+const DB_Seminargroup = require("../modules/DB_Modules/SeminarGroup")
 const utility = require("../modules/utility");
 const Handler_SeminarGroup = require("../modules/seminarGroup_handler");
 
@@ -34,9 +35,10 @@ const parse = {
                                 console.log(course_err);
                                 callback(course_err, null);
                             }else{
-                                //console.log("Course Result: " + course_name);
+                                console.log("Course Result: " + course_name);
+                                console.log(course_result);
                                 const course_ID = course_result[0].courseID;
-                                //console.log(course_ID);
+                                console.log(course_ID);
                                 DB_Semster.getID_fromName(fs_name, function(semester_error, semster_result){
                                     if(semester_error){
                                         log.error("Error called at parse_SeminarGroups.start.DB_Semster.getID_fromName", semester_error);
@@ -44,7 +46,7 @@ const parse = {
                                         callback(semester_error, null);
                                     }else{
                                         const fachSemesterID = semster_result[0].fachSemesterID;
-                                        //console.log(fachSemesterID);
+                                        console.log(fachSemesterID);
 
                                         
                                         request({
@@ -69,12 +71,19 @@ const parse = {
                                                         console.log("fachSemster: " + fachSemesterID);
                                                         console.log("name: " + value);
                                                         console.log("============");
-                                                        Handler_SeminarGroup.exist(value, course_ID, fachSemesterID, function(handler_err, handler_result){
                                                             
-                                                            if (index_result.length - 1 == index){
-                                                                callback(handler_err, handler_result);
+                                                        DB_Seminargroup.getID(value,course_ID, fachSemesterID, function(err, dbResult){
+                                                            if (err){
+                                                                log.error("parse_SeminarGroup.js DB_Seminargroup.getID", err);
+                                                                console.log(err)
+                                                            }else{
+                                                                console.log(dbResult[1][0].ID);
+                                                                if (index_result.length - 1 == index){
+                                                                    console.log("SEMESTER Completion called");
+                                                                    callback();
+                                                                }
                                                             }
-                                                        });
+                                                        })
                                                     }
                                                 });
                                             }

@@ -28,7 +28,8 @@ const cheerio = require('cheerio');
 var request = require("request");
 
 const DB_loadedPages = require("../modules/DB_Modules/LoadedPages");
-const EventHandler = require("../modules/EventType_handler");
+const EventHandler = require("../modules/EventObject_handler");
+const DB_ppED = require("../modules/DB_Modules/preprocessed_Events")
 
 
 
@@ -113,11 +114,21 @@ var Parse = {
                             weeks : cur_Week,
                             room: cur_Room,
                             day: cur_Day,
-                            time: cur_time
+                            time: cur_time,
+                            seminarGroupID : seminarGroupID,
+                            week : week
                         }
                         
                         //returnList.push(returnElement);
-                        EventHandler.start(returnElement, seminarGroupID, week)
+                        //EventHandler.fire(returnElement, week)
+                        DB_ppED.getID(JSON.stringify(returnElement), function(err, dbResult){
+                            if(err){
+                                console.log(err)
+                            }else{
+                                console.log(dbResult[1][0].ID)
+                            }
+                        })
+
 
 
                         // if (elements.length == i){
