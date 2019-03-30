@@ -33,43 +33,15 @@ const Parse = {
                     
                     // existiert der Eintrag in der DB ? 
 
-                    DB_Course.exist_NameShortDegree(name, short, degree, function(error, existResult){
-                        if (error){
-                            log.error("Error called parse_Course.exist_NameShortDegree", error);
-                            callback(error, index_result)
+                    DB_Course.getID(name, short, degree, function(err, dbResult){
+                        if (err){
+                            log.error("parse_Course.js DB_Course.getID", err);
+                            console.log(err)
                         }else{
-                            if(typeof existResult[0] == "undefined"){
-                                console.log("insert Data")
-                                DB_Course.write(name, short, degree, function(err, result){
-                                    if (err){
-                                        log.error("Error called parse_Course.DB_Course.write", err);
-                                        console.log("Error called parse_Course.DB_Course.write");
-                                    }else{
-                                        console.log("Console : Insert row = " + result.insertId);
-
-                                        if (index_result.length - 1 == index){
-                                            console.log("Completion called");
-                                            callback();
-                                        }
-
-                                    } 
-                                });
-                            }
-                            else{
-                                console.log("Row found: "+ existResult[0].courseID);
-                                DB_Course.setSelected(existResult[0].courseID, function(set_error,set_result){
-                                    if(set_error){
-                                        log.error("Error called parse_Course.DB_Course.setSelected", set_error);
-                                        console.log("Error called parse_Course.DB_Course.setSelected");
-                                        console.log(set_error);
-                                    }else{
-                                        console.log(set_result);
-                                        if (index_result.length - 1 == index){
-                                            console.log("Completion called");
-                                            callback();
-                                        }
-                                    }
-                                });
+                            console.log(dbResult[1][0].ID);
+                            if (index_result.length - 1 == index){
+                                console.log("COURSE Completion called");
+                                callback();
                             }
                         }
                     })
