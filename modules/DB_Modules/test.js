@@ -40,7 +40,7 @@ const Test = {
         SELECT @roomID := LAST_INSERT_ID() AS 'ID';\
         \
         INSERT INTO `Termin` (`terminID`, `event`, `start`, `end`, `room`, `created`, `updated`, `lastLookup`, `uniqueID`) \
-        VALUES (NULL, @eventID, @i_start, @i_end, @roomID, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, @eventID, CONCAT(@i_start, @roomID, @eventID)) \
+        VALUES (NULL, @eventID, @i_start, @i_end, @roomID, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, CONCAT(@i_start, @roomID, @eventID)) \
         ON DUPLICATE KEY \
         UPDATE `terminID` = LAST_INSERT_ID(`terminID`), `lastLookup` = CURRENT_TIMESTAMP();\
         SELECT @terminID := LAST_INSERT_ID() AS 'ID';\
