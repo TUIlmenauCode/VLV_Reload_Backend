@@ -10,7 +10,7 @@ const parse_week = require("../parse/parseCalWeekView");
 function parseWeek(week, SeminarGroup, timeOut){
     console.log("week " + week + " SG " + SeminarGroup.replace(/ /g, "+"))
     console.log("loop timeout: " + timeOut)
-    //const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+SeminarGroup.replace(/ /g, "+")+"&vers=graph"
+    const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+SeminarGroup.replace(/ /g, "+")+"&vers=graph"
     
     setTimeout(function(){
             
