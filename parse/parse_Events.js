@@ -7,6 +7,32 @@ const parse_week = require("../parse/parseCalWeekView");
 
 
 
+function parseWeek(week, SeminarGroup, timeOut){
+
+   
+    var i = week - 13;
+    const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+SeminarGroup.replace(/ /g, "+")+"&vers=graph"
+    
+    setTimeout(function(){
+            console.log("loop zyclus: " + i)
+            parse_week.start(requestURL, DB_item.seminarGroupID, week, function(result){
+            
+                console.log(DB_item.name);
+                console.log(requestURL);
+                console.log(result);
+                console.log("==================================================================================")
+            }, timeOut, i)
+
+    }, )
+}
+
+
+
+
+
+
+
+
 const Events = {
 
     start:function(callback){
@@ -20,33 +46,27 @@ const Events = {
                 log.error("Error called at parse_Events.start.DBSeminarGroups.selectAll_names_ID", select_err);
                 console.log(select_err);
             }else{
-                //console.log(select_result);
+               
 
-                select_result.forEach(function(DB_item, index){
+                var interval = 1 * 1000; // n seconds;
+                var current_WEEK = 14;
 
-                    
-                    var interval = 1 * 1000; // n seconds;
 
-                    for (week = 14; week <=40 ; week++) {
-                        var i = week - 13;
-                        const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+DB_item.name.replace(/ /g, "+")+"&vers=graph"
-                        //console.log(requestURL);
-                        setTimeout(function(){
-                            console.log("loop zyclus: " + i)
-                            parse_week.start(requestURL, DB_item.seminarGroupID, week, function(result){
-                            
-                                console.log(DB_item.name);
-                                console.log(requestURL);
-                                console.log(result);
-                                console.log("==================================================================================")
-                            }, interval * i, i)
-
-                        })
-
-                        
-
+                var timer = setInterval(function(){
+                    var i = current_WEEK - 13;
+                    console.log("Time " + new Date().toISOString());
+                    if (current_WEEK >= 14 && current_WEEK <= 40) {
+                        console.log("--> start parse Timer : " + i * interval);
+                        parseWeek(current_WEEK,DB_item.name, i * interval)
+                    }else{
+                        console.log("--> Timer cleared");
+                        clearInterval(timer);
                     }
-                });
+
+                    current_WEEK = current_WEEK + 1;
+                    
+                }, interval)
+
             }
         })
 
