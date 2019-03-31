@@ -40,13 +40,13 @@ const Test = {
         SELECT @roomID := LAST_INSERT_ID() AS 'ID';\
         \
         INSERT INTO `Termin` (`terminID`, `event`, `start`, `end`, `room`, `created`, `updated`, `lastLookup`, `uniqueID`) \
-        VALUES (NULL, @eventID, @i_start, @i_end, @roomID, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, @eventID, CONCAT(@i_start, @roomID, @eventID) \
+        VALUES (NULL, @eventID, @i_start, @i_end, @roomID, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, @eventID, CONCAT(@i_start, @roomID, @eventID)) \
         ON DUPLICATE KEY \
         UPDATE `terminID` = LAST_INSERT_ID(`terminID`), `lastLookup` = CURRENT_TIMESTAMP();\
         SELECT @terminID := LAST_INSERT_ID() AS 'ID';\
         \
         INSERT INTO `GroupTermins` (`groupTerminsID`, `termin`, `group`, `created`, `updated`, `lastLookup`, `uniqueData`) \
-        VALUES (NULL, @terminID, @i_seminarGroup, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, CONCAT(@terminID, @i_seminarGroup) \
+        VALUES (NULL, @terminID, @i_seminarGroup, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, CONCAT(@terminID, @i_seminarGroup)) \
         ON DUPLICATE KEY \
         UPDATE `groupTerminsID` = LAST_INSERT_ID(`groupTerminsID`), `lastLookup` = CURRENT_TIMESTAMP();\
         SELECT LAST_INSERT_ID() AS 'ID';",[resultObject.title, resultObject.link, resultObject.oldID, resultObject.type, resultObject.prof, resultObject.room, resultObject.start, resultObject.end, resultObject.seminarGroupID], callback)
