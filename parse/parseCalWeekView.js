@@ -119,8 +119,7 @@ var Parse = {
                             week : week
                         }
                         
-                        //returnList.push(returnElement);
-                        //EventHandler.fire(returnElement, week)
+                        console.log(returnElement);
                         DB_ppED.getID(JSON.stringify(returnElement), function(err, dbResult){
                             if(err){
                                 console.log(err)
