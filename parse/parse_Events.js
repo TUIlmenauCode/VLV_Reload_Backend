@@ -8,20 +8,18 @@ const parse_week = require("../parse/parseCalWeekView");
 
 
 function parseWeek(week, SeminarGroup, timeOut){
-
-   
-    var i = week - 13;
     const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+SeminarGroup.replace(/ /g, "+")+"&vers=graph"
     
     setTimeout(function(){
-            console.log("loop zyclus: " + i)
-            parse_week.start(requestURL, DB_item.seminarGroupID, week, function(result){
+            console.log("week " + week + " SG " + SeminarGroup.replace(/ /g, "+"))
+            console.log("loop timeout: " + timeOut)
+            parse_week.start(requestURL, SeminarGroup, week, function(result){
             
                 console.log(DB_item.name);
                 console.log(requestURL);
                 console.log(result);
                 console.log("==================================================================================")
-            }, timeOut, i)
+            }, timeOut)
 
     }, )
 }
