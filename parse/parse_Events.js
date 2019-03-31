@@ -24,20 +24,25 @@ const Events = {
 
                 select_result.forEach(function(DB_item, index){
 
-                    //console.log("ID: " + DB_item.seminarGroupID);
-                    //console.log("name: " + DB_item.name);
+                    
+                    var interval = 0.5 * 1000; // n seconds;
 
                     for (week = 14; week <=40 ; week++) {
                         const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+DB_item.name.replace(/ /g, "+")+"&vers=graph"
                         //console.log(requestURL);
+                        setTimeout(function(){
 
-                        parse_week.start(requestURL, DB_item.seminarGroupID, week, function(result){
+                            parse_week.start(requestURL, DB_item.seminarGroupID, week, function(result){
                             
-                            console.log(DB_item.name);
-                            console.log(requestURL);
-                            console.log(result);
-                            console.log("==================================================================================")
+                                console.log(DB_item.name);
+                                console.log(requestURL);
+                                console.log(result);
+                                console.log("==================================================================================")
+                            }, interval * i, i)
+
                         })
+
+                        
 
                     }
                 });
