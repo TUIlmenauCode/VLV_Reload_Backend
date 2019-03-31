@@ -63,7 +63,7 @@ const Events = {
                     if (i < count_SG) {
                         console.log(select_result[i]);
                         console.log("--> Item :" + i + " of " + count_SG);
-                        parseWeek(current_WEEK,select_result[i].name, select_result[i].SeminarGroupID)
+                        parseWeek(current_WEEK,select_result[i].name, select_result[i].seminarGroupID)
                     }else{
                         console.log("-->  Loop END ");
                         //clearInterval(timer);
