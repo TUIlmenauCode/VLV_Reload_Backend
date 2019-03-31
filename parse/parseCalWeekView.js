@@ -125,7 +125,7 @@ var Parse = {
                             if(err){
                                 console.log(err)
                             }else{
-                                console.log(dbResult[1][0].ID)
+                                console.log("id : " + dbResult[1][0].ID)
                             }
                         })
 
