@@ -49,10 +49,10 @@ var Parse = {
     start:function(url, seminarGroupID, week, callback){ 
         request({
             uri: url,
-            
             }, 
             function(error, response, body) {
                 if (error){
+                    console.log("Request Error")
                     console.log(error);
                 }else{
                     DB_loadedPages.write("WeekView", url, body);
