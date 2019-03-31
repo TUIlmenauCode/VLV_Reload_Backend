@@ -65,6 +65,8 @@ const Events = {
                     }
 
                     current_WEEK = current_WEEK + 1;
+
+                    i++;
                     
                 }, interval)
 
