@@ -25,14 +25,14 @@ const Events = {
                 select_result.forEach(function(DB_item, index){
 
                     
-                    var interval = 0.5 * 1000; // n seconds;
+                    var interval = 1 * 1000; // n seconds;
 
                     for (week = 14; week <=40 ; week++) {
                         var i = week - 13;
                         const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+DB_item.name.replace(/ /g, "+")+"&vers=graph"
                         //console.log(requestURL);
                         setTimeout(function(){
-
+                            console.log("loop zyclus: " + i)
                             parse_week.start(requestURL, DB_item.seminarGroupID, week, function(result){
                             
                                 console.log(DB_item.name);
