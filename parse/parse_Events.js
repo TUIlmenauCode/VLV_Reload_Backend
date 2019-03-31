@@ -7,10 +7,10 @@ const parse_week = require("../parse/parseCalWeekView");
 
 
 
-function parseWeek(week, SeminarGroup){
+function parseWeek(week, SeminarGroup, SeminarGroupID){
     console.log("week " + week + " SG " + SeminarGroup.replace(/ /g, "+"))
     const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+SeminarGroup.replace(/ /g, "+")+"&vers=graph"       
-    parse_week.start(requestURL, SeminarGroup, week, function(result){
+    parse_week.start(requestURL, SeminarGroupID, week, function(result){
     
         console.log(DB_item.name);
         console.log(requestURL);
@@ -59,10 +59,11 @@ const Events = {
                         console.log("LOOP reset \n===========\n week: " + current_WEEK + "\n i: " + i);
                     }
                     
-                    console.log(select_result[i].name);
+                    
                     if (i < count_SG) {
+                        console.log(select_result[i].name);
                         console.log("--> Item :" + i + " of " + count_SG);
-                        parseWeek(current_WEEK,select_result[i].name)
+                        parseWeek(current_WEEK,select_result[i].name, select_result[i].SeminarGroupID)
                     }else{
                         console.log("-->  Loop END ");
                         //clearInterval(timer);
