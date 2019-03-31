@@ -54,12 +54,12 @@ const Events = {
                 var timer = setInterval(function(){
                     
                     console.log("Time " + new Date().toISOString());
-                    console.log(select_result[i]);
+                    console.log(select_result[i].name);
                     if (current_WEEK >= 14 && current_WEEK <= 40) {
                         console.log("--> start parse Timer : " + (i+1) * interval);
                         console.log("--> Item :" + i);
                         
-                        //parseWeek(current_WEEK,select_result[i].seminarGroupID, i * interval)
+                        parseWeek(current_WEEK,select_result[i].name, i * interval)
                     }else{
                         console.log("--> Timer cleared");
                         clearInterval(timer);
