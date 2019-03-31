@@ -57,7 +57,7 @@ const Events = {
                     console.log("Time " + new Date().toISOString());
                     if (current_WEEK >= 14 && current_WEEK <= 40) {
                         console.log("--> start parse Timer : " + i * interval);
-                        parseWeek(current_WEEK,DB_item.name, i * interval)
+                        //parseWeek(current_WEEK,DB_item.name, i * interval)
                     }else{
                         console.log("--> Timer cleared");
                         clearInterval(timer);
