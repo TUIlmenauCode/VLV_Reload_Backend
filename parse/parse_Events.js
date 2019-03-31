@@ -42,7 +42,7 @@ const Events = {
             }else{
                
 
-                var interval = 1 * 1000; // n seconds;
+                var interval = 300; // ms;
                 var current_WEEK = 14;
                 var i = 0;
                 var count_SG    =  select_result.length;
@@ -61,10 +61,8 @@ const Events = {
                     
                     console.log(select_result[i].name);
                     if (i < count_SG) {
-                        console.log("--> start parse Timer : " + (i+1) * interval);
-                        console.log("--> Item :" + i);
-                        
-                        parseWeek(current_WEEK,select_result[i].name, i * interval)
+                        console.log("--> Item :" + i + " of " + count_SG);
+                        parseWeek(current_WEEK,select_result[i].name)
                     }else{
                         console.log("-->  Loop END ");
                         //clearInterval(timer);
