@@ -8,6 +8,7 @@ const DB_Room = require("./DB_Modules/Room");
 const DB_Termin = require("./DB_Modules/Termin");
 const DB_TerminGroup = require("./DB_Modules/GroupTermins");
 const DB_ppED = require("../modules/DB_Modules/preprocessed_Events")
+const DB_test = require("../modules/DB_Modules/test");
 
 /**
   * Sample Return Object
@@ -22,6 +23,95 @@ const DB_ppED = require("../modules/DB_Modules/preprocessed_Events")
     time: '11.00 - 12.30' }
   */
 
+function insertInDB(resultObject, week){
+    console.log("start")
+    DB_Prof.getID(resultObject.prof, function(err, prof_dbResult){
+        if (err){
+            console.log(err)
+        }else{
+            profId = prof_dbResult[1][0].ID;
+            console.log("Prof ID: " + profId);
+            
+            
+            
+            DB_EventType.getID(resultObject.type, function(err, eventType_dbResult){
+                if (err){
+                    console.log(err)
+                }else{
+                    eventTypeId = eventType_dbResult[1][0].ID;
+                    console.log("EventType ID: " + eventTypeId);
+
+
+
+                    DB_Event.getID(resultObject.title, resultObject.link, resultObject.oldID, profId, eventTypeId, function(err, event_dbResult){
+                        if (err){
+                            console.log(err)
+                        }else{
+                            eventId = event_dbResult[1][0].ID;
+                            console.log("Event ID: " + eventId);
+
+
+
+                            DB_Room.getID(resultObject.room, function(err, room_dbResult){
+                                if (err){
+                                    console.log(err)
+                                }else{
+                                    roomId = room_dbResult[1][0].ID;
+                                    console.log("Room ID: " + roomId);
+
+
+
+                                    var times = resultObject.time.split(" - ");
+                                    console.log(times);
+                                    var start_time = moment(times[0], 'HH.mm').locale("de").day(resultObject.day).week(week).year(2019).format("YYYY-MM-DD HH:mm:ss");
+                                    var end_time = moment(times[1], 'HH.mm').locale("de").day(resultObject.day).week(week).year(2019).format("YYYY-MM-DD HH:mm:ss");
+                                    
+                                    DB_Termin.getID(eventId, start_time, end_time, roomId, eventId+start_time+roomId, function(err, termin_dbResult){
+                                        if (err){
+                                            console.log(err)
+                                        }else{
+                                            terminId = termin_dbResult[1][0].ID;
+                                            console.log("Termin ID: " + terminId);
+
+
+
+                                            DB_TerminGroup.getID(terminId, resultObject.seminarGroupID, terminId + resultObject.seminarGroupID, function(err, terminGroup_ID){
+                                                if (err){
+                                                    console.log(err)
+                                                }else{
+                                                    GroupTerminId = terminGroup_ID[1][0].ID;
+                                                    console.log("GroupTermin ID: " + GroupTerminId);
+                                                }
+                                    
+                                            })
+                                        
+                                        }
+                                    })
+
+
+
+                                }
+                            })
+
+
+
+                        }
+                    })
+
+
+
+                }
+            })
+
+
+
+        }
+    })
+}
+
+
+
+
 
 const Handler = {
 
@@ -32,95 +122,48 @@ const Handler = {
             if(err){
                 console.log(err)
             }else{
+                // var i = 0;
+                // const resultObject = JSON.parse(select_Result[i].jsonObject);
+                // console.log(resultObject);
+                // const week = resultObject.week;
+                // //insertInDB(resultObject, week)
+
+                
+                //console.log((i) + " from " + select_Result.length);
+
                 select_Result.forEach(element => {
                     //console.log(JSON.parse(element.jsonObject));
 
                     const resultObject = JSON.parse(element.jsonObject);
                     const week = resultObject.week;
-                    console.log("DO something");
                     
-                    DB_Prof.getID(resultObject.prof, function(err, prof_dbResult){
+                    var times = resultObject.time.split(" - ");
+                    console.log(times);
+                    var start_time = moment(times[0], 'HH.mm').locale("de").day(resultObject.day).week(week).year(2019).format("YYYY-MM-DD HH:mm:ss");
+                    var end_time = moment(times[1], 'HH.mm').locale("de").day(resultObject.day).week(week).year(2019).format("YYYY-MM-DD HH:mm:ss");
+                                        
+
+                    var testObject = {
+                        title : resultObject.title, 
+                        link: resultObject.link, 
+                        oldID: resultObject.oldID, 
+                        type: resultObject.type, 
+                        prof: resultObject.prof, 
+                        room: resultObject.room, 
+                        start: start_time, 
+                        end: end_time, 
+                        seminarGroupID: resultObject.seminarGroupID
+                    }
+
+
+                    DB_test.fire(testObject, function(err, result){
                         if (err){
-                            console.log(err)
+                            console.log(err);
                         }else{
-                            profId = prof_dbResult[1][0].ID;
-                            console.log("Prof ID: " + profId);
-                            
-                            
-                            
-                            DB_EventType.getID(resultObject.type, function(err, eventType_dbResult){
-                                if (err){
-                                    console.log(err)
-                                }else{
-                                    eventTypeId = eventType_dbResult[1][0].ID;
-                                    console.log("EventType ID: " + eventTypeId);
-            
-            
-            
-                                    DB_Event.getID(resultObject.title, resultObject.link, resultObject.oldID, profId, eventTypeId, function(err, event_dbResult){
-                                        if (err){
-                                            console.log(err)
-                                        }else{
-                                            eventId = event_dbResult[1][0].ID;
-                                            console.log("Event ID: " + eventId);
-            
-            
-            
-                                            DB_Room.getID(resultObject.room, function(err, room_dbResult){
-                                                if (err){
-                                                    console.log(err)
-                                                }else{
-                                                    roomId = room_dbResult[1][0].ID;
-                                                    console.log("Room ID: " + roomId);
-            
-            
-            
-                                                    var times = resultObject.time.split(" - ");
-                                                    console.log(times);
-                                                    var start_time = moment(times[0], 'HH.mm').locale("de").day(resultObject.day).week(week).year(2019).format("YYYY-MM-DD HH:mm:ss");
-                                                    var end_time = moment(times[1], 'HH.mm').locale("de").day(resultObject.day).week(week).year(2019).format("YYYY-MM-DD HH:mm:ss");
-                                                    
-                                                    DB_Termin.getID(eventId, start_time, end_time, roomId, current_event+start_time+roomId, function(err, termin_dbResult){
-                                                        if (err){
-                                                            console.log(err)
-                                                        }else{
-                                                            terminId = termin_dbResult[1][0].ID;
-                                                            console.log("Termin ID: " + terminId);
-            
-            
-            
-                                                            DB_TerminGroup.getID(terminId, resultObject.seminarGroupID, terminId + resultObject.seminarGroupID, function(err, terminGroup_ID){
-                                                                if (err){
-                                                                    console.log(err)
-                                                                }else{
-                                                                    GroupTerminId = terminGroup_ID[1][0].ID;
-                                                                    console.log("GroupTermin ID: " + GroupTerminId);
-                                                                }
-                                                    
-                                                            })
-                                                        
-                                                        }
-                                                    })
-            
-            
-            
-                                                }
-                                            })
-            
-            
-            
-                                        }
-                                    })
-            
-            
-            
-                                }
-                            })
-            
-            
-            
+                            console.log(result);
                         }
                     })
+                    
                 });
             }
         })

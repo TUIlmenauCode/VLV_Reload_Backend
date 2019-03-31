@@ -8,8 +8,8 @@ const Prof = {
     },
 
     getID:function(name, callback){
-        return db.query("INSERT IGNORE INTO `Prof` (name) VALUES (?) ON DUPLICATE KEY UPDATE `profID` = LAST_INSERT_ID(`profID`), `lastLookup` = CURRENT_TIMESTAMP();SELECT LAST_INSERT_ID() AS 'ID';")
-    },
+        return db.query("INSERT INTO `Prof` (name) VALUES (?) ON DUPLICATE KEY UPDATE `profID` = LAST_INSERT_ID(`profID`), `lastLookup` = CURRENT_TIMESTAMP();SELECT LAST_INSERT_ID() AS 'ID';",[name], callback)
+    }
 
 }
 

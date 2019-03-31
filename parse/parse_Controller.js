@@ -31,7 +31,7 @@ const Parse = {
                         parse_Events.start(function(){
                             console.log("Parse Controller Ended");
 
-                            parse_EventObjects.fire();
+                            //parse_EventObjects.fire();
                         })
                         
                     })
