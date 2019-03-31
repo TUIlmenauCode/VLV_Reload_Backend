@@ -7,22 +7,18 @@ const parse_week = require("../parse/parseCalWeekView");
 
 
 
-function parseWeek(week, SeminarGroup, timeOut){
+function parseWeek(week, SeminarGroup){
     console.log("week " + week + " SG " + SeminarGroup.replace(/ /g, "+"))
     console.log("loop timeout: " + timeOut)
-    const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+SeminarGroup.replace(/ /g, "+")+"&vers=graph"
+    const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+SeminarGroup.replace(/ /g, "+")+"&vers=graph"       
+    parse_week.start(requestURL, SeminarGroup, week, function(result){
     
-    setTimeout(function(){
-            
-            parse_week.start(requestURL, SeminarGroup, week, function(result){
-            
-                console.log(DB_item.name);
-                console.log(requestURL);
-                console.log(result);
-                console.log("==================================================================================")
-            }, timeOut)
-
-    }, )
+        console.log(DB_item.name);
+        console.log(requestURL);
+        console.log(result);
+        console.log("==================================================================================")
+    
+    })
 }
 
 
@@ -50,25 +46,34 @@ const Events = {
                 var interval = 1 * 1000; // n seconds;
                 var current_WEEK = 14;
                 var i = 0;
+                var count_SG    =  select_result.length;
+
+                console.log("INTI \n======\n count:" + count_SG);
 
                 var timer = setInterval(function(){
                     
-                    console.log("Time " + new Date().toISOString());
+                    console.log("LOOP BEGIN \n===========\n week: " + current_WEEK + "\n i: " + i);
+
+                    if (current_WEEK <40){
+                        current_WEEK = 14;
+                        i++;
+                        console.log("LOOP reset \n===========\n week: " + current_WEEK + "\n i: " + i);
+
+                    }
+                    
                     console.log(select_result[i].name);
-                    if (current_WEEK >= 14 && current_WEEK <= 40) {
+                    if (i < count_SG) {
                         console.log("--> start parse Timer : " + (i+1) * interval);
                         console.log("--> Item :" + i);
                         
                         parseWeek(current_WEEK,select_result[i].name, i * interval)
                     }else{
-                        console.log("--> Timer cleared");
-                        clearInterval(timer);
+                        console.log("-->  Loop END ");
+                        //clearInterval(timer);
                     }
 
                     current_WEEK = current_WEEK + 1;
 
-                    i++;
-                    
                 }, interval)
 
             }
