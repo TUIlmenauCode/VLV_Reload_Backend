@@ -66,11 +66,11 @@ const parse = {
                                                     var gruppen_pattern = /Gruppen/g
                                                     if (text.match(gruppen_pattern)){
                                                     }else{
-                                                        console.log("============");
-                                                        console.log("Course: " + course_ID);
-                                                        console.log("fachSemster: " + fachSemesterID);
-                                                        console.log("name: " + value);
-                                                        console.log("============");
+                                                        // console.log("============");
+                                                        // console.log("Course: " + course_ID);
+                                                        // console.log("fachSemster: " + fachSemesterID);
+                                                        // console.log("name: " + value);
+                                                        // console.log("============");
                                                             
                                                         DB_Seminargroup.getID(value,course_ID, fachSemesterID, function(err, dbResult){
                                                             if (err){

@@ -8,11 +8,12 @@ const parse_week = require("../parse/parseCalWeekView");
 
 
 function parseWeek(week, SeminarGroup, timeOut){
-    const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+SeminarGroup.replace(/ /g, "+")+"&vers=graph"
+    console.log("week " + week + " SG " + SeminarGroup.replace(/ /g, "+"))
+    console.log("loop timeout: " + timeOut)
+    //const requestURL =  "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&woche="+week+"&sggruppe="+SeminarGroup.replace(/ /g, "+")+"&vers=graph"
     
     setTimeout(function(){
-            console.log("week " + week + " SG " + SeminarGroup.replace(/ /g, "+"))
-            console.log("loop timeout: " + timeOut)
+            
             parse_week.start(requestURL, SeminarGroup, week, function(result){
             
                 console.log(DB_item.name);
@@ -56,7 +57,8 @@ const Events = {
                     if (current_WEEK >= 14 && current_WEEK <= 40) {
                         console.log("--> start parse Timer : " + (i+1) * interval);
                         console.log("--> Item :" + i);
-                        parseWeek(current_WEEK,select_result[i].seminarGroupID, i * interval)
+                        console.log(select_result[i].seminarGroupID);
+                        //parseWeek(current_WEEK,select_result[i].seminarGroupID, i * interval)
                     }else{
                         console.log("--> Timer cleared");
                         clearInterval(timer);
