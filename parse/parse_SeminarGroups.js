@@ -35,10 +35,10 @@ const parse = {
                                 console.log(course_err);
                                 callback(course_err, null);
                             }else{
-                                console.log("Course Result: " + course_name);
-                                console.log(course_result);
+                                //console.log("Course Result: " + course_name);
+                                //console.log(course_result);
                                 const course_ID = course_result[0].courseID;
-                                console.log(course_ID);
+                                console.log("CourseID : " + course_ID);
                                 DB_Semster.getID_fromName(fs_name, function(semester_error, semster_result){
                                     if(semester_error){
                                         log.error("Error called at parse_SeminarGroups.start.DB_Semster.getID_fromName", semester_error);
@@ -46,7 +46,7 @@ const parse = {
                                         callback(semester_error, null);
                                     }else{
                                         const fachSemesterID = semster_result[0].fachSemesterID;
-                                        console.log(fachSemesterID);
+                                        console.log("Fachsemester : " + fachSemesterID);
 
                                         
                                         request({
