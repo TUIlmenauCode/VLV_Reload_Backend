@@ -54,11 +54,10 @@ const Events = {
                     
                     console.log("LOOP BEGIN \n===========\n week: " + current_WEEK + "\n i: " + i);
 
-                    if (current_WEEK <40){
+                    if (current_WEEK >= 40){
                         current_WEEK = 14;
                         i++;
                         console.log("LOOP reset \n===========\n week: " + current_WEEK + "\n i: " + i);
-
                     }
                     
                     console.log(select_result[i].name);
