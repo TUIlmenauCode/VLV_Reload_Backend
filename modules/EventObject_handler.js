@@ -264,26 +264,41 @@ const Handler = {
         //         }
         //     }
         //})
-    }
+    },
 
 
     
 
+    test:function(resultObject){            
+        const week = resultObject.week;
+        
+        var times = resultObject.time.split(" - ");
+        console.log(times);
+        var start_time = moment(times[0], 'HH.mm').locale("de").day(resultObject.day).week(week).year(2019).format("YYYY-MM-DD HH:mm:ss");
+        var end_time = moment(times[1], 'HH.mm').locale("de").day(resultObject.day).week(week).year(2019).format("YYYY-MM-DD HH:mm:ss");
+                            
 
-    // [X] handle EventType -> get id
+        var testObject = {
+            title : resultObject.title, 
+            link: resultObject.link, 
+            oldID: resultObject.oldID, 
+            type: resultObject.type, 
+            prof: resultObject.prof, 
+            room: resultObject.room, 
+            start: start_time, 
+            end: end_time, 
+            seminarGroupID: resultObject.seminarGroupID
+        }
 
-    // [x] handle Prof -> get id
 
-    // [x] handle Event -> get id 
-
-    // [x] handle Room -> get id
-
-    // handle Termin -> get id 
-
-    // handle Group Termin
-
-
-
+        DB_test.fire(testObject, function(err, result){
+            if (err){
+                console.log(err);
+            }else{
+                console.log(result);
+            }
+        })         
+    }
 }
 
 

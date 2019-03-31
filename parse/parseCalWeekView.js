@@ -120,13 +120,15 @@ var Parse = {
                         }
                         
                         console.log(returnElement);
-                        DB_ppED.getID(JSON.stringify(returnElement), function(err, dbResult){
-                            if(err){
-                                console.log(err)
-                            }else{
-                                console.log("id : " + dbResult[1][0].ID)
-                            }
-                        })
+                        // DB_ppED.getID(JSON.stringify(returnElement), function(err, dbResult){
+                        //     if(err){
+                        //         console.log(err)
+                        //     }else{
+                        //         console.log("id : " + dbResult[1][0].ID)
+                        //     }
+                        // })
+
+                        EventHandler.test(returnElement)
 
 
 
