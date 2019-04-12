@@ -15,9 +15,13 @@ const URLbase = "https://tu-ilmenau.de/vlv/"
 var URL = "";
 URL = "https://www.tu-ilmenau.de/vlv/index.php?id=6&funccall=1&sgkurz=MB_DP&vers=text&studiengang=Maschinenbau&fs=2.FS" // SS = 6 WS = 330
 
-parse_Controller.start(URL, function(){
-    console.log("Index Ended") ;
-});
+// parse_Controller.start(URL, function(){
+//     console.log("Index Ended") ;
+// });
+
+parse_Controller.start(function(){
+    console.log("--> END <--");
+})
 
 // testParse.start(function(){
 //     console.log("END Test");
