@@ -24,11 +24,11 @@ const parse = {
                 callback(index_err, null);
             }else{
                 index_result.forEach(function(index_element, index){
-                    const course_name = utility.getParameterByName("sgkurz", index_element.href)
+                    
+                    const course_name = utility.getParameterByName("sgkurz", index_element.href);
                     const fs_name = utility.getParameterByName("fs", index_element.href);
-
+                    console.log(index_result.length - 1 + " / " + index);
                     if (index_element.isCourseLink){
-
                         DB_Course.getID_fromName(course_name, function(course_err, course_result){
                             if(course_err){
                                 log.error("Error called at parse_SeminarGroups.start.DB_Course.getID_fromName", course_err);
@@ -57,7 +57,7 @@ const parse = {
                                                   console.log(error);
                                                   callback(error, null);
                                               }else{
-                                                  log.loadedPage("Course Index Page", URL, body);
+                                                  //log.loadedPage("Course Index Page", URL, body);
                                                   $ = cheerio.load(body);
                                                   $('select[name="sggruppe"]').children().each(function() {
                                                     var value = $(this).val();
@@ -77,11 +77,9 @@ const parse = {
                                                                 log.error("parse_SeminarGroup.js DB_Seminargroup.getID", err);
                                                                 console.log(err)
                                                             }else{
-                                                                console.log(dbResult[1][0].ID);
-                                                                if (index_result.length - 1 == index){
-                                                                    console.log("SEMESTER Completion called");
-                                                                    callback();
-                                                                }
+                                                                //console.log("SeminarGroup ID : " + dbResult[1][0].ID);
+                                                                // console.log(index_result.length + " / " + index)
+                                                                
                                                             }
                                                         })
                                                     }
@@ -93,6 +91,13 @@ const parse = {
                             }
                         });
                     }
+
+                    if (index_result.length - 1 == index){
+                        console.log("SEMESTER Completion called");
+                        callback();
+                    }
+
+
                 })
             }
         })

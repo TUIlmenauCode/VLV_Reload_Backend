@@ -20,7 +20,7 @@ const Parse = {
                     var degree = 1;  // TODO : Abhänging von der Datenbank machen 1: Bachelor, 2: Master, 3: Diplom
                     const sgKurz = utility.getParameterByName("sgkurz", element.href)
                     var short = sgKurz;
-                    console.log(sgKurz);
+                    console.log("SG kurz : " + sgKurz);
                     if (sgKurz.match(DP_patter)){ // is it Diplom Course ? 
                         console.log("--> is Diplom");
                         degree = 3;

@@ -14,7 +14,7 @@ const Parse = {
                 console.log(index_result);
                 index_result.forEach(function(element, index) {
                     var name  = element.linkText;
-                    console.log(name);
+                    console.log("NAME : " + name);
                     
 
                     DB_Semester.getID(name,function(err, dbResult){
@@ -22,7 +22,7 @@ const Parse = {
                             log.error("parse_Semester.js DB_Semester.getID", err);
                             console.log(err)
                         }else{
-                            console.log(dbResult[1][0].ID);
+                            console.log("akademischer Grad ID " + dbResult[1][0].ID);
                             if (index_result.length - 1 == index){
                                 console.log("SEMESTER Completion called");
                                 callback();
