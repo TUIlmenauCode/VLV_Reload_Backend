@@ -43,7 +43,7 @@ const Events = {
                
 
                 var interval = 300; // ms;
-                var current_WEEK = 14;
+                var current_WEEK = 17;
                 var i = 0;
                 var count_SG    =  select_result.length;
 
@@ -54,7 +54,7 @@ const Events = {
                     console.log("LOOP BEGIN \n===========\n week: " + current_WEEK + "\n i: " + i);
 
                     if (current_WEEK >= 40){
-                        current_WEEK = 14;
+                        current_WEEK = 17;
                         i++;
                         console.log("LOOP reset \n===========\n week: " + current_WEEK + "\n i: " + i);
                     }
