@@ -32,7 +32,7 @@ days.forEach(function(d){
 
                         data.forEach(function(e){
                             console.log(e.prices.students);
-                            meal_DB.insert(e.id, m, e.name, e.category, e.prices.students, e.prices.students, e.prices.students, JSON.stringify(e.notes), d, function(err, dbResult){
+                            meal_DB.insert(e.id, m, e.name, e.category, e.prices.students, e.prices.employees, e.prices.others, JSON.stringify(e.notes), d, function(err, dbResult){
                                 if(err){
                                     console.log(err);
                                 }else{
